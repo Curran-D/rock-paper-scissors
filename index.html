@@ -5,7 +5,7 @@
     </head>
     <body>
         <script>
-            function computerPlay(){
+            function computerPlay(){ //random selection between rock paper and scissors
                 randomSelection = Math.floor(Math.random()*3);
                 switch (randomSelection){
                     case 0:
@@ -19,6 +19,18 @@
                     break
                     default:
                     return "Something went wrong";
+                }
+            }
+            function  gameRound(playerSelection, computerSelection){ //compares player choice and computer choice and returns result
+                let p = playerSelection.toLowerCase(); //lower case
+                let c = computerSelection;
+
+                if (p == c){ 
+                    return "It's a draw";
+                }else if ((p == "rock" && c == "paper") || (p == "scissors" && c == "rock") || (p == "paper" && c == "scissors")){
+                    return "You lose " + c + " beats " + p + ".";
+                }else {
+                    return "You win " + p + " beats " + c + ".";
                 }
             }
 
