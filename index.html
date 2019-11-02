@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rock, Paper, Scissors</title>
+    </head>
+    <body>
+        <script>
+            function computerPlay(){
+                randomSelection = Math.floor(Math.random()*3);
+                switch (randomSelection){
+                    case 0:
+                    return "rock";
+                    break
+                    case 1:
+                    return "paper";
+                    break
+                    case 2:
+                    return "scissors";
+                    break
+                    default:
+                    return "Something went wrong";
+                }
+            }
+
+        </script>
+    </body>
+</html>
