@@ -1,5 +1,5 @@
 body {
-    width: 400px;
+    width: 500px;
     
 }
 button {
@@ -18,6 +18,23 @@ button {
     margin: 0;
 }
 
+@keyframes woah {
+    0% {background-color: purple;}
+    25% {background-color: yellow;}
+    50% {background-color: blue;}
+    75% {background-color: orange;}
+    100% {background-color: green;}
+}
+
+.winner {
+    background-color: purple;
+    font-size: 24px;
+    color: white;
+    animation-name: woah;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
 
 .output {
     text-align: center;
