@@ -4,7 +4,34 @@
         <title>UI Rock, Paper, Scissors</title>
     </head>
     <body>
+        <div class="selection">
+            <div class="rock">
+                <button id="rock">Rock</button>
+            </div>
+            <div class="paper">
+                <button id="paper">Paper</button>
+            </div>
+            <div class="scissors">
+                <button id="scissors">Scissors</button>
+            </div>
+        </div>
+        <div class = "output">
+            <div class = "commentary"></div>
+            <div class = "score"></div>
+            <div class = "winner"></div>
+        </div>
+        <div class = "reset">
+           
+        </div>
+    </body>
+    <footer>
         <script>
+            let pScore = 0;
+            let cScore = 0;
+            let numberOfRounds = 5;
+            const winner = document.querySelector(".winner");
+          
+            
             function computerPlay(){ //random selection between rock paper and scissors
                 randomSelection = Math.floor(Math.random()*3);
                 switch (randomSelection){
@@ -21,55 +48,100 @@
                     return "Something went wrong";
                 }
             }
-            function  gameRound(playerSelection, computerSelection){ //compares player choice and computer choice and returns result
-                let p = playerSelection.toLowerCase(); //lower case
+            function gameRound(playerSelection, computerSelection){ //compares player choice and computer choice and returns result
+                let p = playerSelection;
                 let c = computerSelection;
-
+                let result = "";
+                
                 if (p == c){ 
-                    return "draw";
+                    result = "draw";
                 }else if ((p == "rock" && c == "paper") || (p == "scissors" && c == "rock") || (p == "paper" && c == "scissors")){
-                    return "loss";
+                    result = "loss";
                 }else {
-                    return "win";
+                    result = "win";
+                }
+                return result;
+            }
+            function game(p) {
+                
+                let c = computerPlay();
+                let result = gameRound(p,c);
+                winner.textContent = "";
+                if (result == "draw"){
+                    commentary("draw", p, c);
+                    updateScore("draw")
+                } else if (result == "loss"){
+                    commentary("loss", p, c);
+                    updateScore("loss");
+                }else {
+                    commentary("win", p ,c);
+                    updateScore("win");
+                }
+                if (checkScore() >= numberOfRounds) {
+                    endGame();
+                }
+
+            }  
+            function endGame(){
+                
+                if (pScore > cScore) {
+                    winner.textContent = "Congratulations!! You are the winner. " + pScore + " - " + cScore;
+                    pScore = 0;
+                    cScore = 0;
+                    updateScore("draw")
+                    //createTryAgainBtn();
+                } else {
+                    winner.textContent = "Sorry you lost " + pScore + " - " + cScore + ". Try again.";
+                    pScore = 0;
+                    cScore = 0;
+                    updateScore("draw")
+                    //createTryAgainBtn();
                 }
             }
-            
-            function game() { // main run of the game, 5 rounds
-                
-                let numberOfRounds = 5;
-                let playerScore = 0;
-                let computerScore = 0;
-                
-                for (let i = 1; i <= numberOfRounds; i++){
-                    let playerChoice = prompt("Rock, Paper, Scissors?");
-                    let computerChoice = computerPlay();
-                    let result = gameRound(playerChoice, computerChoice);
-
-                    if (result == "draw"){
-                        console.log("It's a draw")
-                    } else if (result == "win"){
-                        console.log("You win! " +playerChoice+" beats " +computerChoice + ".")
-                        playerScore++
-                        console.log("The score is: Player " + playerScore + " - " + computerScore + " Computer")
-                    } else if (result == "loss") {
-                        console.log("You lose! " +computerChoice+" beats " +playerChoice + ".")
-                        computerScore++
-                        console.log("The score is: Player " + playerScore + " - " + computerScore + " Computer")
-                    } else{
-                        console.log ("Something went wrong")
-                    }
-                }
-
-                if (playerScore > computerScore){
-                    console.log("Congratulations!!! You win! " + playerScore + " - " + computerScore)
-                } else if (playerScore < computerScore){
-                    console.log("You lost. " + playerScore + " - " + computerScore)
+            function updateScore(result){
+                const scoreboard = document.querySelector(".score");
+                if (result == "win"){
+                    pScore += 1;
+                    scoreboard.textContent = "The score is: Player " + pScore + " - " + cScore + " Computer";
+                }else if (result == "loss"){
+                    cScore += 1;
+                    scoreboard.textContent = "The score is: Player " + pScore + " - " + cScore + " Computer";
                 } else {
-                    console.log("It's a draw " + playerScore + " - " + computerScore)
-                } 
-            }   
-            
+                    scoreboard.textContent = "The score is: Player " + pScore + " - " + cScore + " Computer";
+                }              
+            }
+            function commentary(result,p,c){
+                const commentary = document.querySelector(".commentary");
+                    if (result == "draw"){
+                        commentary.textContent = "It was a draw."
+                    } else if (result == "win") {
+                        commentary.textContent = "You won! " + p + " beats " + c + ".";
+                    } else if (result == "loss") {
+                        commentary.textContent = "You lost! " + c + " beats " + p + ".";
+                    } else {
+                        commentary.textContent = "Somethign went wrong";
+                    }
+            }
+            function checkScore(){
+                return pScore + cScore;
+            }
+            /*function createTryAgainBtn(){
+                tryAgain = document.createElement("button");        
+                tryAgain.textContent = "Try Again";
+                tryAgain.addEventListener('click',function(){
+                    location.reload();
+                })
+                
+                resetDiv = document.querySelector('.reset');
+                resetDiv.appendChild(tryAgain);
 
-        </script>
-    </body>
+            }*/
+            var buttons = document.querySelectorAll('.selection','button');
+            buttons.forEach(btn => btn.addEventListener('click', function(e) { 
+                game(e.target.id);
+            }));
+       
+            
+            </script>
+    </footer>
 </html>
