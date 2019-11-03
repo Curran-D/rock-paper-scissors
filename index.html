@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>UI Rock, Paper, Scissors</title>
+        <link rel="stylesheet" type="text/css" href = "style.css">
     </head>
     <body>
         <div class="selection">
@@ -136,12 +137,12 @@
                 resetDiv.appendChild(tryAgain);
 
             }*/
-            var buttons = document.querySelectorAll('.selection','button');
+            var buttons = document.querySelectorAll('button');
             buttons.forEach(btn => btn.addEventListener('click', function(e) { 
                 game(e.target.id);
             }));
        
             
-            </script>
+        </script>
     </footer>
 </html>
