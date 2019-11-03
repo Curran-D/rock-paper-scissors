@@ -26,13 +26,49 @@
                 let c = computerSelection;
 
                 if (p == c){ 
-                    return "It's a draw";
+                    return "draw";
                 }else if ((p == "rock" && c == "paper") || (p == "scissors" && c == "rock") || (p == "paper" && c == "scissors")){
-                    return "You lose " + c + " beats " + p + ".";
+                    return "loss";
                 }else {
-                    return "You win " + p + " beats " + c + ".";
+                    return "win";
                 }
             }
+            
+            function game() { // main run of the game, 5 rounds
+                
+                let numberOfRounds = 5;
+                let playerScore = 0;
+                let computerScore = 0;
+                
+                for (let i = 1; i <= numberOfRounds; i++){
+                    let playerChoice = prompt("Rock, Paper, Scissors?");
+                    let computerChoice = computerPlay();
+                    let result = gameRound(playerChoice, computerChoice);
+
+                    if (result == "draw"){
+                        console.log("It's a draw")
+                    } else if (result == "win"){
+                        console.log("You win! " +playerChoice+" beats " +computerChoice + ".")
+                        playerScore++
+                        console.log("The score is: Player " + playerScore + " - " + computerScore + " Computer")
+                    } else if (result == "loss") {
+                        console.log("You lose! " +computerChoice+" beats " +playerChoice + ".")
+                        computerScore++
+                        console.log("The score is: Player " + playerScore + " - " + computerScore + " Computer")
+                    } else{
+                        console.log ("Somethign went wrong")
+                    }
+                }
+
+                if (playerScore > computerScore){
+                    console.log("Congratulations!!! You win! " + playerScore + " - " + computerScore)
+                } else if (playerScore < computerScore){
+                    console.log("You lost. " + playerScore + " - " + computerScore)
+                } else {
+                    console.log("It's a draw " + playerScore + " - " + computerScore)
+                } 
+            }   
+            
 
         </script>
     </body>
